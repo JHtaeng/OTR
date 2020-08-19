@@ -15,8 +15,8 @@ def yellow(image):
     gray = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
 
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    lower = (20,190, 50)
-    upper = (30, 255, 255)
+    lower = (23,50,60)
+    upper = (32, 255, 255)
 
     mask = cv2.inRange(hsv, lower, upper)
     
@@ -74,9 +74,9 @@ def orange(image):
     gray = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
 
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    lower = (0,110, 190)
+    lower = (13,70, 150)
     upper = (20, 255, 255)
-
+    
     mask = cv2.inRange(hsv, lower, upper)
     
     mask = cv2.medianBlur(mask, 9)
@@ -93,7 +93,7 @@ def green(image):
     gray = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
 
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    lower = (45,110, 110)
+    lower = (35,110, 110)
     upper= (80, 255, 255)
 
     mask = cv2.inRange(hsv, lower, upper)
@@ -109,8 +109,8 @@ def darkgreen(image):
     gray = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
 
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    lower = (30,110, 50)
-    upper= (45, 255, 255)
+    lower = (30,110, 110)
+    upper= (60, 255, 140)
 
     mask = cv2.inRange(hsv, lower, upper)
 
@@ -125,7 +125,7 @@ def blue(image):
     gray = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
 
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    lower = (90,150, 110)
+    lower = (90,120, 110)
     upper= (110, 255, 255)
 
     mask = cv2.inRange(hsv, lower, upper)
@@ -182,7 +182,7 @@ def purple(image):
     gray = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
 
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    lower = (130,110, 110)
+    lower = (125,100, 100)
     upper= (150, 255, 255)
 
     mask = cv2.inRange(hsv, lower, upper)
@@ -196,6 +196,25 @@ def purple(image):
 
     return dst
 
+
+def brown(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
+
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    lower = (0,20, 70)
+    upper = (13, 255, 255)
+
+    mask = cv2.inRange(hsv, lower, upper)
+
+    mask = cv2.medianBlur(mask, 9)
+    kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (3,3))
+    mask = cv2.dilate(mask, kernel, iterations=1)
+
+    obj = cv2.bitwise_and(image, image, mask=mask)
+    dst = cv2.addWeighted(gray, 0.5, obj, 1.0, 0.0)
+
+    return dst
 
 
 ###########################################################apps
